@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% block titulo %} Interéses {%endblock%}
+{% block contenido %} 
+{% load static %}
+{% block head %} 
+<style>
+    .interes {
+        display: inline-block;
+        padding: 10px;
+        margin: 5px;
+        border: 1px solid #007bff;
+        border-radius: 5px;
+        cursor: pointer;
+        user-select: none;
+    }
+    .interes.selected {
+        color: white;
+    }
+</style>
+{%endblock%}
+
+<div class="container mt-5">
+    <h2 class="mb-4">Selecciona tus Intereses</h2>
+    <form method="POST" enctype="multipart/form-data" >
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        <div class="mb-3">
+            {% for interes in form.intereses %}
+                <div class="interes" data-value="{{ interes.choice_value }}">
+                    {{ interes.choice_label }}
+                </div>
+            {% endfor %}
+        </div>
+        <input type="hidden" name="intereses" id="selected_intereses">
+        <button type="submit" class="btn btn-success">Finalizar</button>
+    </form>
+</div>
+
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const interesesDivs = document.querySelectorAll(".interes");
+        const selectedInteresesInput = document.getElementById("selected_intereses");
+        const colors = ["#007bff", "#28a745", "#dc3545", "#ffc107", "#17a2b8"];
+        
+        interesesDivs.forEach(function(interesDiv) {
+            interesDiv.addEventListener("click", function() {
+                if (interesDiv.classList.contains("selected")) {
+                    interesDiv.classList.remove("selected");
+                    interesDiv.style.backgroundColor = "";
+                } else if (document.querySelectorAll(".interes.selected").length < 5) {
+                    interesDiv.classList.add("selected");
+                    interesDiv.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                } else {
+                    alert("No puedes seleccionar más de 5 intereses.");
+                }
+                updateSelectedIntereses();
+            });
+        });
+
+        function updateSelectedIntereses() {
+            const selectedIntereses = [];
+            document.querySelectorAll(".interes.selected").forEach(function(interesDiv) {
+                selectedIntereses.push(interesDiv.getAttribute("data-value"));
+            });
+            selectedInteresesInput.value = selectedIntereses.join(",");
+        }
+    });
+</script>
+
+
+{%endblock%}

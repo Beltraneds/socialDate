@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block titulo %} Home {% endblock %}
+
+{% block contenido %}
+<div class="container mt-5">
+    <h2>Bienvenido a la Página Principal</h2>
+    {% if user.is_authenticated %}
+    <p>Bienvenido, {{ usuario.correo }}.</p>
+    {% else %}
+    <p>Bienvenido a nuestra aplicación.</p>
+    <a href="{% url 'index' %}">Iniciar sesión</a>
+    {% endif %}
+    <p>Aquí verás los perfiles de otros usuarios.</p>
+
+    <a href="{% url 'logout' %}" class="btn btn-danger">Cerrar sesión</a>
+</div>
+{% endblock %}

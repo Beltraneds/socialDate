@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html lang="es">
   <head>
+    {% block head %} {%endblock%}
     <title>{% block titulo %} {% endblock %}</title>
     <!-- Required meta tags -->
     <meta charset="utf-8" />
@@ -84,5 +85,9 @@
       integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
       crossorigin="anonymous"
     ></script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
+    {% block js %} {%endblock%}
   </body>
 </html>

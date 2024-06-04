@@ -21,7 +21,7 @@
 
 <div class="container mt-5">
     <h2 class="mb-4">Selecciona tus Intereses</h2>
-    <form method="POST" enctype="multipart/form-data" >
+    <form method="POST" action="{% url 'home' %}">
         {% csrf_token %}
         {{ form.non_field_errors }}
         <div class="mb-3">

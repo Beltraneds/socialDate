@@ -6,7 +6,7 @@
 <div class="container mt-5">
     <h2>Bienvenido a la Página Principal</h2>
     {% if user.is_authenticated %}
-    <p>Bienvenido, {{ usuario.correo }}.</p>
+    <p>Bienvenido, {{ user.username }}.</p>
     {% else %}
     <p>Bienvenido a nuestra aplicación.</p>
     <a href="{% url 'index' %}">Iniciar sesión</a>

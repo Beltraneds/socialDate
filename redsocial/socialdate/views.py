@@ -5,7 +5,6 @@ import logging
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from .forms import LoginForm
-from django.views.decorators.csrf import csrf_protect
 
 # Create your views here.
 logger = logging.getLogger(__name__)
@@ -60,20 +59,8 @@ def seleccion_intereses(request):
     return render(request, 'registration/seleccion_intereses.html', {'form': form})
 
 @login_required
-@csrf_protect
 def home_view(request):
-    usuario = request.user
-    interes = None
-    try:
-        usuario = Usuario.objects.get(id_usuario=usuario)
-        interes = Interes.objects.get(id_interes=interes)
-    except Interes.DoesNotExist:
-        pass
-
-    context = {
-        'usuario': usuario,
-    }
-    return render(request, 'user/home.html', context)
+    return render(request, 'user/home.html')
 
 def logout_view(request):
     logout(request)
